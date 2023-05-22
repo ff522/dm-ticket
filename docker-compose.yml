@@ -1,0 +1,39 @@
+version: "3"
+
+networks:
+  dm_network:
+    driver: bridge
+#    ipam:
+#      driver: default
+#      config:
+#      - subnet: 172.20.0.0/16
+#        gateway: 172.20.0.1
+
+
+services:
+
+  dm-ticket:
+    image: classmatelin/dm-ticket:latest
+    container_name: dm-ticket
+    restart: always
+    privileged: true
+    volumes:
+      - "./config:/src/config"
+    networks:
+      - dm_network
+    depends_on:
+      - token-server
+    environment:
+      RUST_LOG: "INFO"
+      TOKEN_SERVER_URL: "http://token-server:8080"
+
+  token-server:
+    image: classmatelin/alitoken-server:latest
+    restart: always
+    container_name: token-server
+    networks:
+      - dm_network
+    environment:
+      RUST_LOG: "info"
+    ports:
+      - "8080:8080"

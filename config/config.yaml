@@ -1,0 +1,23 @@
+accounts:
+    # .damai.cn中的cookie字符串
+    - cookie: "cna=XD3FHNoADAMCAdzxKqCz0c5s; xxx=ssss;xxx=ssss;"
+      remark: 账号1
+      # 抢票轮训间隔, 单位毫秒
+      interval: 30
+
+      # 最早提前多少毫秒发包。 开抢剩余时间戳 = 开始售票的时间戳 - 当前时间戳。 当开抢剩余时间戳时间小于 submit_time时, 开始发送数据包。
+      earliest_submit_time: 15
+
+      ticket:
+        # 需要抢购的门票ID, 门票详情页URL中的itemId.如:https://m.damai.cn/damai/detail/item.html?utm=&itemId=710947802955
+        id: "719062769469"
+        # 需要抢购的门票数量
+        num: 2
+        # 需要抢购的场次序号.
+        sessions: 2
+        # 需要抢购的票档序号
+        grade: 2
+
+
+
+        
