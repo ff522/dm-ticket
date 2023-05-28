@@ -21,11 +21,54 @@
 - 运行容器: `docker-compose up -d`
 - 修改配置: `vim config/config.yaml`, 配置项在config/config.yaml中有详细注释。
 - 运行脚本: `docker exec -it dm-ticket dm-ticket`
-![run.png](./images/run.png)
+  - sample 1:
+     ![run.png](./images/run.png)
+     ![run_res.png](./images/run_res.jpeg)
+  - sample 2:
+    ![run2.png](./images/run2.png)
+
+- 如遇到`Connection refused (os error 111)`错误, 说明token-server还没启动完成, 等待片刻即可。
+![Connection refused (os error 111)](./images/connection_errors.png)
+
+
+## 其他说明
+
+- 如何获取cookie? 
+
+  登录[大麦网](https://m.damai.cn/), F12打开控制台查看网络请求, 复制请求中的cookie。 
+  ![img.png](images/cookie.png)
+
+- 如何获取演唱会id？
+ 
+ 进入门票详情, 复制URL中的itemId。
+ ![ticket_id](./images/ticket.png)
+
+- 如何获取场次？
+
+ 点击购买按钮, 弹出的场次。第一个就是1, 以此类推。
+ ![img.png](images/session_id.png)
+
+- 如何获取票档?
+
+ 选择场次之后, 弹出票档信息, 从左到右, 从上到下, 从1开始递增。如图:
+![img.png](images/grade.png)
+
+- 实名信息怎么选择?
+
+ 按实名信息顺序, 自动选择。 如购买2张票, 默认选择前两位实名人。
+
+## TODO
+
+- [ ] 扫码登录 
+- [ ] ...
 
 
 ## 赞赏
 
-如果我的项目对你有帮助:
+如果我的项目对你有帮助, 可以通过以下方式支持我:
 
-<img src="./images/pay.jpeg" width="256px;" >
+- 点个star。
+
+- 又或者: 
+ 
+ <img src="./images/pay.jpeg" width="256px;" >
