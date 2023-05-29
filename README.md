@@ -27,9 +27,17 @@
   - sample 2:
     ![run2.png](./images/run2.png)
 
+    
+## 常见问题
+
 - 如遇到`Connection refused (os error 111)`错误, 说明token-server还没启动完成, 等待片刻即可。
 ![Connection refused (os error 111)](./images/connection_errors.png)
-
+- 生成订单失败, ["RGV587_ERROR::SM::哎哟喂,被挤爆啦,请稍后重试!"], 请检查是否复制了完整的cookie, ip有问题。
+- ["B-00203-200-100::网络开小差了，再试一次吧~"], 请检查是否复制了完整的cookie。
+- docker/docker-compose安装使用问题，请善用搜索引擎, 自行搜索解决方案。
+- 是否支持多账号, v0.1.0版本是支持多账号的。后续可能取消。要实现多账号支持, 开启多个docker容器也可以支持。
+- 频繁尝试运行程序出现,  ["RGV587_ERROR::SM::哎哟喂,被挤爆啦,请稍后重试!"]。请重新登陆。
+- 仅支持h5购票。
 
 ## 其他说明
 
