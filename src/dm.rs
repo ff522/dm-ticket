@@ -286,12 +286,21 @@ impl DmTicket {
             .item
             .item
             .sell_start_time_str;
-        let start_timestamp = ticket_info
+        let mut  start_timestamp = ticket_info
             .detail_view_component_map
             .item
             .item
             .sell_start_timestamp
             .parse::<i64>()?;
+
+        let request_time = self.account.request_time.unwrap_or(-1);
+
+        let retry_times =  self.account.retry_times.unwrap_or(2);
+        let retry_interval = self.account.retry_interval.unwrap_or(100);
+
+        if request_time > 0 {
+            start_timestamp = request_time
+        }
 
         println!(
             "\r\n\t账号备注:{}\n\t门票名称:{}\n\t场次名称:{}\n\t票档名称:{}\n\t开抢时间:{}\n",
@@ -326,12 +335,17 @@ impl DmTicket {
                 }
 
                 _ = r.recv() => {
-                    for _ in 0..2 {
+
+                    // 多次重试
+                    for _ in 0..retry_times {
                         if let Ok(res) = self.buy(&item_id, &sku_id).await {
                             if res {// 抢购成功, 退出
                                 return Ok(());
                             }
                         }
+                        
+                        // 重试间隔 
+                        tokio::time::sleep(Duration::from_millis(retry_interval)).await;
                     }
                     return Ok(());
                 }

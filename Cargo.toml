@@ -16,6 +16,7 @@ anyhow = {version="1.0.66"}
 log={version="0.4.17"}
 pretty_env_logger="0.4.0"
 md5 = {version="0.7.0"}
+dotenv = {version= "0.15.0"}
 futures = {version="0.3.28"}
 chrono = {version="0.4.24", features = ["unstable-locales"] }
 async-channel={version = "1.8"}

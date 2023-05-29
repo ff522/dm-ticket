@@ -4,11 +4,14 @@ use dm_ticket::{
     dm,
 };
 use futures::future::join_all;
-
+use dotenv::dotenv;
 use std::env;
 
 #[tokio::main]
 async fn main() -> Result<()> {
+
+    dotenv().ok();
+
     if env::var("RUST_LOG").is_err() {
         env::set_var("RUST_LOG", "INFO");
     }
@@ -22,6 +25,7 @@ async fn main() -> Result<()> {
     let config: Config = load_global_config().unwrap();
 
     let mut handlers = Vec::new();
+
     for account in config.accounts.iter() {
         let account = account.clone();
         let handler = tokio::spawn(async move {
