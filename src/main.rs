@@ -3,13 +3,12 @@ use dm_ticket::{
     config::{load_global_config, Config},
     dm,
 };
-use futures::future::join_all;
 use dotenv::dotenv;
+use futures::future::join_all;
 use std::env;
 
 #[tokio::main]
 async fn main() -> Result<()> {
-
     dotenv().ok();
 
     if env::var("RUST_LOG").is_err() {

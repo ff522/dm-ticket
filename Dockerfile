@@ -19,7 +19,11 @@ RUN cargo build --release --verbose
 
 COPY src /usr/src/dm-ticket/src/
 
-RUN RUST_BACKTRACE=1 cargo build  --release && upx /usr/src/dm-ticket/target/release/dm-ticket
+RUN RUST_BACKTRACE=1 cargo build --release --verbose --bin dm-ticket && upx /usr/src/dm-ticket/target/release/dm-ticket
+
+
+RUN RUST_BACKTRACE=1 cargo build --release --verbose --bin dm-login && upx /usr/src/dm-ticket/target/release/dm-login
+
 
 FROM --platform=$TARGETPLATFORM alpine:3.17 as runtime
 
@@ -35,5 +39,7 @@ RUN sed -i "s/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g" /etc/apk/repositorie
 WORKDIR /src/
 
 COPY --from=builder /usr/src/dm-ticket/target/release/dm-ticket /usr/bin/dm-ticket
+
+COPY --from=builder /usr/src/dm-ticket/target/release/dm-login /usr/bin/dm-login
 
 CMD ["/usr/sbin/crond", "-f", "-d", "0"]

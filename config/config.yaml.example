@@ -1,5 +1,5 @@
 accounts:
-    # .damai.cn中的cookie字符串
+    # .damai.cn中的cookie完整字符串
     - cookie: ""
       remark: 账号1
       # 抢票轮训间隔, 单位毫秒
@@ -22,10 +22,9 @@ accounts:
         # 需要抢购的门票ID, 门票详情页URL中的itemId.如:https://m.damai.cn/damai/detail/item.html?utm=&itemId=710947802955
         id: "721069251830"
         # 需要抢购的门票数量
-        num: 3
+        num: 1
         # 需要抢购的场次序号.
         sessions: 1
         # 需要抢购的票档序号
-        grade: 5
-
+        grade: 1
 

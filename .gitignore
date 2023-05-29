@@ -18,3 +18,5 @@ target/
 config/config.yaml
 
 .idea/
+
+.env

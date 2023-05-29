@@ -10,7 +10,7 @@ serde = {version = "1.0.148", features = ["derive"]}
 serde_json = {version = "1.0.89", default-features = false, features = ["alloc"]}
 serde_yaml = "0.9.21"
 schemars = "0.8.12"
-tokio = { version = "1.21.2", default-features = false, features = ["macros", "rt-multi-thread", "signal", "time"] }
+tokio = { version = "1.21.2", default-features = false, features = ["macros", "rt-multi-thread", "signal", "time", "fs"] }
 reqwest = {version="0.11.12", default-features=false, features = ["json", "rustls-tls", "cookies", "multipart"]}
 anyhow = {version="1.0.66"}
 log={version="0.4.17"}
@@ -20,3 +20,12 @@ dotenv = {version= "0.15.0"}
 futures = {version="0.3.28"}
 chrono = {version="0.4.24", features = ["unstable-locales"] }
 async-channel={version = "1.8"}
+urlencoding = {version = "2.1.2"}
+fast_qr = "0.8.5"
+image = {version = "0.24.6"}
+rqrr = {version = "0.6.0"}
+bytes = "1"
+rand={version="0.8.5"}
+[[bin]]
+name = "dm-login"
+path = "src/bin/login.rs"

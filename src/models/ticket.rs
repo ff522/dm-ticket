@@ -19,7 +19,7 @@ impl TicketInfoForm {
             item_id: ticket_id,
             dm_channel: "damai@damaih5_h5",
         };
-        Ok(serde_json::to_value(&data)?)
+        Ok(serde_json::to_value(data)?)
     }
 }
 
