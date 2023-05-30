@@ -15,6 +15,8 @@ COPY .cargo /usr/src/dm-ticket/.cargo
 
 WORKDIR /usr/src/dm-ticket
 
+RUN mkdir src/bin && cat src/main.rs > src/bin/login.rs
+
 RUN cargo build --release --verbose
 
 COPY src /usr/src/dm-ticket/src/
