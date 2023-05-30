@@ -26,6 +26,16 @@ image = {version = "0.24.6"}
 rqrr = {version = "0.6.0"}
 bytes = "1"
 rand={version="0.8.5"}
+
+
 [[bin]]
 name = "dm-login"
 path = "src/bin/login.rs"
+
+
+[profile.release]
+lto = true
+opt-level="z"
+codegen-units = 1
+panic = "abort"
+strip = true
