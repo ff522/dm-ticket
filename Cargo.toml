@@ -33,6 +33,12 @@ name = "dm-login"
 path = "src/bin/login.rs"
 
 
+[[bin]]
+name = "dm-ticket"
+path = "src/bin/ticket.rs"
+
+
+
 [profile.release]
 lto = true
 opt-level="z"
