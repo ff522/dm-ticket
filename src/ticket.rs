@@ -4,12 +4,13 @@ use std::{
 };
 
 use crate::{
-    client::DmClient,
+    clients::dm::DmClient,
     config::Account,
     models::{
         order::{OrderForm, OrderInfo, OrderParams, SubmitOrderParams},
         perform::{PerformForm, PerformInfo, PerformParams},
         ticket::{TicketInfo, TicketInfoForm, TicketInfoParams},
+        user::{GetUserInfoForm, GetUserInfoParams, UserInfoData},
         DmRes,
     },
 };
@@ -40,6 +41,20 @@ impl DmTicket {
         let client = DmClient::new(cookie).await?;
 
         Ok(Self { client, account })
+    }
+
+    // 获取用户信息
+    pub async fn get_user_info(&self) -> Result<UserInfoData> {
+        let url = "https://mtop.damai.cn/h5/mtop.damai.wireless.user.session.transform/1.0/";
+        let params = GetUserInfoParams::build()?;
+        let form = GetUserInfoForm::build()?;
+        let res = self.client.request(url, params, form).await?;
+        if res.ret.contains(&SUCCESS_FLAG.to_string()) {
+            let user_info_data = serde_json::from_value(res.data)?;
+            Ok(user_info_data)
+        } else {
+            Err(anyhow!("{}", res.ret[0]))
+        }
     }
 
     // 获取门票信息
@@ -247,6 +262,18 @@ impl DmTicket {
 
     // 程序入口
     pub async fn run(&self) -> Result<()> {
+        let user_info = match self.get_user_info().await {
+            Ok(info) => info,
+            Err(e) => {
+                if e.to_string().contains("FAIL_SYS_SESSION_EXPIRED::Session") {
+                    error!("获取用户信息失败, cookie已过期, 请重新登陆!");
+                } else {
+                    error!("获取用户信息失败, 原因:{:?}", e);
+                }
+
+                return Ok(());
+            }
+        };
         let ticket_id = self.account.ticket.id.clone();
         let perfomr_idx = self.account.ticket.sessions - 1; // 场次索引
         let sku_idx = self.account.ticket.grade - 1; // 票档索引
@@ -307,8 +334,8 @@ impl DmTicket {
         }
 
         println!(
-            "\r\n\t账号备注:{}\n\t门票名称:{}\n\t场次名称:{}\n\t票档名称:{}\n\t开抢时间:{}\n",
-            self.account.remark, ticket_name, perform_name, sku_name, start_time_str
+            "\r\n\t账号备注: {}\n\t账号昵称: {}\n\t门票名称: {}\n\t场次名称: {}\n\t票档名称: {}\n\t开抢时间: {}\n",
+            self.account.remark, user_info.nickname, ticket_name, perform_name, sku_name, start_time_str
         );
 
         let (s, r) = async_channel::unbounded::<bool>();

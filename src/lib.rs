@@ -1,4 +1,5 @@
-pub mod client;
+pub mod clients;
 pub mod config;
-pub mod dm;
+pub mod login;
 pub mod models;
+pub mod ticket;

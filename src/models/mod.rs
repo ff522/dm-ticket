@@ -2,6 +2,7 @@ pub mod order;
 pub mod perform;
 pub mod qrcode;
 pub mod ticket;
+pub mod user;
 
 use chrono::{DateTime, Local};
 use serde::{Deserialize, Serialize};

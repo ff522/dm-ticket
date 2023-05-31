@@ -47,13 +47,13 @@ impl OrderForm {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-pub struct OrderInfoContainer {}
+pub struct OrderInfoContainer;
 
 #[derive(Serialize, Deserialize, Debug)]
-pub struct OrderInfoData {}
+pub struct OrderInfoData;
 
 #[derive(Serialize, Deserialize, Debug)]
-pub struct OrderInfoEndpoint {}
+pub struct OrderInfoEndpoint;
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct OrderInfoGlobal {

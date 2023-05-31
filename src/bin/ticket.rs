@@ -1,7 +1,7 @@
 use anyhow::Result;
 use dm_ticket::{
     config::{load_global_config, Config},
-    dm,
+    ticket,
 };
 use dotenv::dotenv;
 use futures::future::join_all;
@@ -28,7 +28,7 @@ async fn main() -> Result<()> {
     for account in config.accounts.iter() {
         let account = account.clone();
         let handler = tokio::spawn(async move {
-            let dm_ticket = dm::DmTicket::new(account).await.unwrap();
+            let dm_ticket = ticket::DmTicket::new(account).await.unwrap();
             dm_ticket.run().await.unwrap();
         });
         handlers.push(handler);

@@ -3,7 +3,7 @@ use rand::distributions::Alphanumeric;
 use rand::{thread_rng, Rng};
 use serde::{Deserialize, Serialize};
 use serde_json::{json, Value};
-pub struct QrcodeContentGetParams {}
+pub struct QrcodeContentGetParams;
 
 impl QrcodeContentGetParams {
     pub fn build() -> Result<serde_json::Value> {
@@ -42,7 +42,7 @@ pub struct QrcodeData {
     pub result_code: u32,
 }
 
-pub struct QrCodeLoginGetResParams {}
+pub struct QrCodeLoginGetResParams;
 
 impl QrCodeLoginGetResParams {
     pub fn build() -> Result<Value> {
@@ -54,7 +54,7 @@ impl QrCodeLoginGetResParams {
     }
 }
 
-pub struct QrCodeLoginGetResForm {}
+pub struct QrCodeLoginGetResForm;
 
 impl QrCodeLoginGetResForm {
     pub fn build(t: u64, ck: String) -> Result<Value> {

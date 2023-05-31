@@ -34,21 +34,19 @@ where
     // 1.通过std::fs读取配置文件内容
     // 2.通过serde_yaml解析读取到的yaml配置转换成json对象
     match serde_yaml::from_str::<RootSchema>(
-        &std::fs::read_to_string(path).unwrap_or_else(|_| panic!("failure read file {}", path)),
+        &std::fs::read_to_string(path).unwrap_or_else(|_| panic!("读取配置文件失败:{}", path)),
     ) {
         Ok(root_schema) => {
-            // 通过serde_json把json对象转换指定的model
             let data =
                 serde_json::to_string_pretty(&root_schema).expect("failure to parse RootSchema");
+
             let config = serde_json::from_str::<T>(&data)
-                .unwrap_or_else(|_| panic!("failure to format json str {}", &data));
-            // 返回格式化结果
+                .unwrap_or_else(|_| panic!("配置文件格式错误, 请检查配置: {}", &data));
+
             Some(config)
         }
         Err(err) => {
-            // 记录日志
             error!("{}", err);
-            // 返回None
             None
         }
     }
