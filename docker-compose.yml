@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+  dm-ticket:
+    image: classmatelin/dm-ticket:latest
+    container_name: dm-ticket
+    restart: always
+    privileged: true
+    # deploy:
+    #   resources:
+    #     limits:
+    #       cpus: '0.80'
+    #       memory: 600M
+    #     reservations:
+    #       cpus: '0.50'
+    #       memory: 300M
+

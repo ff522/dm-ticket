@@ -1,0 +1,47 @@
+[package]
+name = "dm-ticket"
+version = "0.2.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+tokio = { version = "1.21.2", default-features = false, features = ["macros", "rt-multi-thread", "signal", "time", "fs"] }
+thirtyfour = {version = "0.31.0"}
+anyhow = {version = "1.0.70"}
+log = {version = "0.4.17"}
+cacache = {version="11.5.2"}
+dotenv = {version="0.15.0"}
+pretty_env_logger = {version="0.4.0"}
+redis = {version = "0.23.0", features = ["tokio-comp"]}
+thiserror = { version = "1.0.40" }
+serde = {version = "1.0.148", features = ["derive"]}
+serde_json = {version = "1.0.89", default-features = false, features = ["alloc"]}
+chrono = {version="0.4.24", features = ["unstable-locales"] }
+reqwest = {version="0.11.12", default-features=false, features = ["json", "rustls-tls", "cookies", "multipart"]}
+md5 = {version="0.7.0"}
+async-channel={version = "1.8"}
+rand={version="0.8.5"}
+fast_qr = {version="0.9.0"}
+image = {version = "0.24.6"}
+rqrr = {version = "0.6.0"}
+terminal-menu = {version="2.0.5"}
+urlencoding = {version="*"}
+
+[[bin]]
+name = "dm-client"
+path = "src/bin/client.rs"
+
+
+[[bin]]
+name = "dm-server"
+path = "src/bin/server.rs"
+
+
+
+[profile.release]
+lto = true
+opt-level="z"
+codegen-units = 1
+panic = "abort"
+strip = true
